@@ -35,3 +35,17 @@ whose turn
 if player get move check free, place marker, check win, check stalemate - change turn
 if computer - ai choose square - place marker - check win/stalemate - change turn
 ai could check for 'almost wins' to block
+
+to do:
+at effect on mouseover square
+tie each cell to data -
+
+put modules in self -calling function to set up? the ones that should be set up 
+on page load.
+
+player info: - turn - win? - name - mark;
+
+intro 
+player vs player 
+player vs computer
+if one choose name

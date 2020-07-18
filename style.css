@@ -1,0 +1,21 @@
+
+.board {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.cell-row {
+    display: flex;
+    
+
+}
+
+.cell {
+    height: 100px;
+    width: 100px;
+    background-color: aquamarine;
+    margin: 5px;
+
+}
