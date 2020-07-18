@@ -50,7 +50,7 @@ const grid = (function() {
  }) ();
 
  //game module
- const game = (function() {
+ const game = function() {
 
     // have current player variable in game which is either of player objects
      function init() {
@@ -66,12 +66,13 @@ const grid = (function() {
 
      
      function setBoardData() {
+         console.log("called")
          this.boardData = [
              [0,0,0],
              [0,0,0],
              [0,0,0]
             ];
-            
+            console.log(this.boardData)
         };
         
     function toggleTurn() {
@@ -83,7 +84,7 @@ const grid = (function() {
      return { boardData, player1, init }
      
      
- })();
+ };
 
 
 
