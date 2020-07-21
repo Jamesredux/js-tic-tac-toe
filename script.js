@@ -1,90 +1,90 @@
-// var myCoolFunction = (function() {
-//    var name = "bob";
-//    function sayName() {
-//        console.log("hello " + name + " !!!");
-//    }
+const board = () => {
+    this.cells = Array.from(document.querySelectorAll('.cell'));
 
-//    function updateBoard(params) {
-//        //can contact other modules inside this like so...
-//        //player.changeTurn
-//        //game.check or whatever
-//    }
-//    return {
-//        // this can be run outside function with myCoolFunction.sayName();
-//        sayName
-//    }
-// })();
-const playerCreator = (name, firstMover) => {
+    this.boardData = [
+     ['','',''], 
+     ['','',''],   
+     ['','','']
+    //  [0,0,0],
+    //  [0,0,0],
+    //  [0,0,0]
+    ];
+
+
+    this.checkForWin = function(currentPlayer) {
+        
+      const winningLines = [
+        boardData[0],
+        boardData[1],
+        boardData[2],
+        [boardData[0][0],boardData[1][0],boardData[2][0]],
+        [boardData[0][1],boardData[1][1],boardData[2][1]],
+        [boardData[0][2],boardData[1][2],boardData[2][2]],
+        [boardData[0][0],boardData[1][1],boardData[2][2]],
+        [boardData[0][2],boardData[1][1],boardData[2][0]]
+      ];
+      winningLines.forEach(combo => {
+        if (combo.every(mark => mark == currentPlayer.mark)) {
+            console.log("winner!!!")
+        };
+      });
+     
+       // newGame.restart();        
+    };
+    
+ return { cells, boardData, checkForWin, winningLines }
+    
+};
+
+const player = (name, firstMover) => {
     var mark = "X"
    if(!firstMover) {
        mark = "O"
    };
 
-   return { name, mark }
+   this.takeTurn = function(grid, cellCoords) {
+    console.log(grid.boardData)
+    console.log(this.name)
+    grid.boardData[cellCoords[0]][cellCoords[1]] = this.mark;
+    // check winner here
+
+   };
+
+   return { name, mark, takeTurn }
 };
 
-//grid module
-const grid = (function() {
-    function init() {
-        setListeners();
-    }
+function game() {
+    const grid = board();
+    const player1 = player("Player 1", true);
+    const player2 = player("Player 2", false);
+    var currentPlayer = player1;
+    
 
-    function setListeners() {
-        const cells = document.querySelectorAll('.cell');
-        cells.forEach(cell => cell.addEventListener('click', selectCell));
-    }
-
-    function selectCell() {
-        // if cell occupied return
-       console.log(this.dataset.cell); 
-       const cellSelected = this.dataset.cell;
-       const cellA = cellSelected[0];
-       const cellB = cellSelected[1];
-       console.log(cellSelected[1])
-       this.textContent = "xor0"; 
-       game.boardData[cellA][cellB] = 1;  //create one game.chooseSquare function that goes
-       //to game module and changes board, checks win  changes playerturn -
+    this.start = function() {
+        grid.cells.forEach(cell => cell.addEventListener('click', takeTurn))
     };
 
-    init();
- }) ();
-
- //game module
- const game = function() {
-
-    // have current player variable in game which is either of player objects
-     function init() {
-         setPlayers();
-         setBoardData()
-     };
-
-     function setPlayers() {
-
-         this.player1 = playerCreator("Player 1", true)
-         this.player2 = playerCreator("Player 2", false)
-     };
-
-     
-     function setBoardData() {
-         console.log("called")
-         this.boardData = [
-             [0,0,0],
-             [0,0,0],
-             [0,0,0]
-            ];
-            console.log(this.boardData)
-        };
+    function takeTurn() {
+        cellCoords = this.dataset.cell;
+        currentPlayer.takeTurn(grid, cellCoords);
+        this.textContent = currentPlayer.mark
+        grid.checkForWin(currentPlayer);
         
-    function toggleTurn() {
-   
-        };
-     init();
+        currentPlayer === player1 ? currentPlayer = player2 : currentPlayer = player1;
+        console.log(grid.boardData);
+        const cellDiv = document.querySelector("[data-cell=" + CSS.escape(cellCoords) + "]")
+         cellDiv.removeEventListener('click', takeTurn);
+         
+    };
 
-     console.log(player1.name)
-     return { boardData, player1, init }
-     
-     
- };
+    this.restart = function() {
+        console.log("restart")
+    }
+  
+
+};
+const newGame = new game();
+newGame.start();
 
 
 
