@@ -1,177 +1,234 @@
-// board object
+// // board object
 
-const board = () => {
-    console.log("new board")
-    var gameOver = false;
-    var gameDrawn = false;
-    this.cells = Array.from(document.querySelectorAll('.cell'));
+// const board = () => {
 
-    this.boardData = [
-     ['','',''], 
-     ['','',''],   
-     ['','','']
-    ];
+//     var gameOver = false;
+//     var gameDrawn = false;
+//     var winningLines = [];
+//     this.cells = Array.from(document.querySelectorAll('.cell'));
+//     function init() {  
+//       this.boardData = [
+//      ['','',''], 
+//      ['','',''],   
+//      ['','','']
+//     ];
+//     };
 
-    this.reset = function() {
-        this.boardData = [
-            ['','',''], 
-            ['','',''],   
-            ['','','']
-           ];
-    }
+//     this.resetBoard = function() {
+//         this.boardData = [
+//             ['','',''], 
+//             ['','',''],   
+//             ['','','']
+//            ];
+//            console.log(this.boardData)
+//     };
 
-    this.checkForWin = function(currentPlayer) {
+//     this.checkForWin = function(currentPlayer) {
+//        console.log("check for win called")
+//        console.log(boardData[0])
+//        console.log(this.boardData[0])
+//          winningLines = [
+//             this.boardData[2],
+//             this.boardData[0],
+//             this.boardData[1],
+//             [this.boardData[0][1],this.boardData[1][1],this.boardData[2][1]],
+//             [this.boardData[0][0],this.boardData[1][0],this.boardData[2][0]],
+//             [this.boardData[0][2],this.boardData[1][2],this.boardData[2][2]],
+//             [this.boardData[0][0],this.boardData[1][1],this.boardData[2][2]],
+//             [this.boardData[0][2],this.boardData[1][1],this.boardData[2][0]]
+//           ];
+//         //   console.log(winningLines)
+//       winningLines.forEach(combo => {
+        
+//         if (combo.every(mark => mark == currentPlayer.mark)) {
+//             // console.log(combo)
+//             gameOver = true;
+//         };
+//       });
+//       return gameOver;
+//     };
+    
+//     this.checkForDraw = function() {
+//         const flattened = [].concat(...this.boardData);
+//         if ( !flattened.some(x => x === '')) {
+//             gameDrawn = true;
+//         };
+        
+//         return gameDrawn;
+//     };
+    
+//     init();
+//     return { cells, boardData, checkForWin, checkForDraw, resetBoard }
+
+// };
+
+
+// // player object 
+
+// const player = (name, firstMover) => {
+//     var mark = "X"
+//     !firstMover ? mark = "O" : mark;
+
+//    this.takeTurn = function(grid, cellCoords) {
+//     console.log(grid)
+//     grid.boardData[cellCoords[0]][cellCoords[1]] = this.mark;
+//    };
+
+//    return { name, mark, takeTurn }
+// };
+
+
+// // game function 
+
+// const game = (player1name="Player 1", player2name="Player 2") => {
+//     const grid = board();
+//     const infoCard = document.querySelector('.result');
+//     const player1 = player(player1name, true);
+//     const player2 = player(player2name, false);
+//     var currentPlayer = player1;
+    
+//     this.start = function() {
+        
+//         // console.log("start called")
+//         // setUpCells();
        
+//          startGame();
+//     };
 
-        const winningLines = [
-            this.boardData[2],
-            this.boardData[0],
-            this.boardData[1],
-            [this.boardData[0][1],this.boardData[1][1],this.boardData[2][1]],
-            [this.boardData[0][0],this.boardData[1][0],this.boardData[2][0]],
-            [this.boardData[0][2],this.boardData[1][2],this.boardData[2][2]],
-            [this.boardData[0][0],this.boardData[1][1],this.boardData[2][2]],
-            [this.boardData[0][2],this.boardData[1][1],this.boardData[2][0]]
-          ];
+//     function takeTurn(e) {
+//         if (this.textContent != '') return;
+        
+//         cellCoords = this.dataset.cell;
+//         // currentPlayer.takeTurn(grid, cellCoords);
+//         upDateBoard(cellCoords);
+//         this.textContent = currentPlayer.mark
 
-      winningLines.forEach(combo => {
+//         if (grid.checkForWin(currentPlayer)) {
+//             gameOver();
+//         } else if (grid.checkForDraw()) {
+//             drawGame();
+//         }   
+//             else {
+//             currentPlayer === player1 ? currentPlayer = player2 : currentPlayer = player1;
+//             // const cellDiv = document.querySelector("[data-cell=" + CSS.escape(cellCoords) + "]")
+//             // cellDiv.removeEventListener('click', takeTurn);            
+//         };
+//         e.preventDefault();
+//         e.stopPropagation();
 
-        if (combo.every(mark => mark == currentPlayer.mark)) {
-            gameOver = true;
-            console.log("winning lines game over");
-            
-        };
-      });
-        return gameOver;
-    };
+//     };    
 
-    this.checkForDraw = function() {
-        const flattened = [].concat(...this.boardData);
-        console.log(flattened)
-       if ( !flattened.some(x => x === '')) {
-        gameDrawn = true;}
-        console.log("drawn");
-        return gameDrawn;
-    }
+//     function upDateBoard(coords) {
+//         grid.boardData[cellCoords[0]][cellCoords[1]] = currentPlayer.mark;
+//     };
+        
+//     function gameOver() {
+//         grid.cells.forEach(cell => cell.removeEventListener('click', takeTurn))
+//         infoCard.innerHTML = currentPlayer.name + " is the winner";
+//         addRestartButton()
+//     };
+        
+//     function drawGame() {
+//       infoCard.innerHTML = "Game Drawn"
+//       addRestartButton();
+//     };
+        
+//     function addRestartButton() {
+//         restartButton = document.querySelector('.restart');
+//         restartButton.style.display = 'block';
+//         restartButton.addEventListener('click', startGame);
+//     };    
     
- return { cells, boardData, checkForWin, checkForDraw, reset }
-
-};
-
-
-// player object 
-
-const player = (name, firstMover) => {
-    var mark = "X"
-   if(!firstMover) {
-       mark = "O"
-   };
-
-   this.takeTurn = function(grid, cellCoords) {
-       console.log(grid.boardData)
-    grid.boardData[cellCoords[0]][cellCoords[1]] = this.mark;
-   };
-
-   return { name, mark, takeTurn }
-};
-
-
-// game function 
-
-function game() {
-    var grid = board();
-    const player1 = player("Player 1", true);
-    const player2 = player("Player 2", false);
-    const infoCard = document.querySelector('.result');
-    var currentPlayer = player1;
+//     function startGame() {
+//       currentPlayer = player1;
+//       grid.resetBoard();
+//       resetBoard(); 
+//     };
     
-    this.start = function() {
-        infoCard.innerHTML = ''
-        grid.cells.forEach(cell => cell.innerHTML = '');
-        grid.cells.forEach(cell => cell.addEventListener('click', takeTurn))
-    };
+//     function resetBoard() {
+//         // grid = board();
+//         // grid.boardData = [
+//         //     ['','',''], 
+//         //     ['','',''],   
+//         //     ['','','']
+//         //    ];
+//          console.log(grid)   
+//         setUpCells();
+              
+//     };
 
-    function takeTurn() {
-        cellCoords = this.dataset.cell;
-        currentPlayer.takeTurn(grid, cellCoords);
-        this.textContent = currentPlayer.mark
-        // console.log(grid.boardData)
-        if (grid.checkForWin(currentPlayer)) {
-            
-            gameOver();
-        } else if (grid.checkForDraw()) {
-            
-            drawGame();
-        }   
-            else {
-            currentPlayer === player1 ? currentPlayer = player2 : currentPlayer = player1;
-            const cellDiv = document.querySelector("[data-cell=" + CSS.escape(cellCoords) + "]")
-            cellDiv.removeEventListener('click', takeTurn);            
-        };
+//     function setUpCells() {
+//         // console.log(grid)
+//         // gridCells = Array.from(document.querySelectorAll('.cell'));
         
-        function gameOver() {
-            
-            infoCard.innerHTML = currentPlayer.name + " is the winner";
-            grid.cells.forEach(cell => cell.removeEventListener('click', takeTurn))
-            restartButton = document.querySelector('.restart');
-            restartButton.style.display = 'block';
-            restartButton.addEventListener('click', restartGame);
-
-        };
-
-        function drawGame() {
-            infoCard.innerHTML = "Game Drawn"
-            restartButton = document.querySelector('.restart');
-            restartButton.style.display = 'block';
-            restartButton.addEventListener('click', restartGame);
-        }
-
-        function restartGame() {
-            currentPlayer = player1;
-            infoCard.innerHTML = ''
-            resetBoard();
-            
-        }
-
-        function resetBoard() {
-            grid = board();
-            grid.boardData = [
-                ['','',''], 
-                ['','',''],   
-                ['','','']
-               ];
-               
-            // grid.reset()
-            
-            grid.cells.forEach(cell => cell.addEventListener('click', takeTurn))
-            grid.cells.forEach(cell => cell.innerHTML = '');
-            
-        }
+//          infoCard.innerHTML = ''
+//         //  grid.cells.forEach(cell => cell.removeEventListener('click', takeTurn))
+//          grid.cells.forEach(cell => 
+//             {
+//                 // console.log("removing listener")
+//                 // console.log(cell)
+//                 cell.removeEventListener('click', takeTurn);
+//             })
         
-        
+//          grid.cells.forEach(cell => cell.innerHTML = '');
+//          grid.cells.forEach(cell => 
+//             {
+//                 // console.log(cell)
+//                 // console.log("adding listener")
+//                 cell.addEventListener('click', takeTurn);
+//             });
+//      };
+    
+//      return { start, resetBoard }
+
+// };
+
+
+// const welcome = (function()  {
+
+//     const init = () => {
+//          addListeners()
+ 
+//      };
+//      const addListeners = () => {
+//         const getNames = document.querySelector('#player-names');
+//         //  const onePlayer = document.querySelector('.vs-computer');
          
-    };
+ 
+//          getNames.addEventListener('submit', startTwoPlayerGame);
+//         //  onePlayer.addEventListener('click', startOnePlayerGame);
+//      };
+ 
+//     //  function selectTwoPlayerGame() {
+//     //      const welcomeBox = document.querySelector('.welcome-inner');
+//     //      const nameSelector = document.querySelector('.player-name-input')
+//     //      welcomeBox.style.transform = "rotateY(180deg)";
+//     //      nameSelector.addEventListener('submit', startTwoPlayerGame)
+//     //  };
+ 
+//      function startTwoPlayerGame(e) {
+//          e.preventDefault();
+
+//          const player1Name = this.querySelector('#player1').value || 'Player 1';
+//          const player2Name = this.querySelector('#player2').value || 'Player 2';
+ 
+//          this.reset();
+
+//          if ((typeof newNamedGame) === 'object') {
+//          console.log("recycling game")
+//          newNamedGame.start();
+//         } else {
+//            const newNamedGame = game(player1Name, player2Name);
+
+//            newNamedGame.start();    
+//        };
+           
+//      };
+//      init();
+ 
+//  })();
 
 
+// // const newGame = new game();
+// // newGame.start();
 
-};
-
-const newGame = new game();
-newGame.start();
-
-
-
-function setUpGame() {
-    const getNames = document.querySelector('#player-names');
-    getNames.addEventListener('submit', startGame);
-
-    function startGame(e) {
-        const player1 = 
-        e.preventDefault();
-        console.log(e);
-        const new2PlayerGame = new game();
-        new2PlayerGame.start();
-    }
-};
-
-setUpGame();
