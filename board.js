@@ -33,7 +33,7 @@ const gameBoard = (() => {
             };
         };
 
-      displayCells.forEach(cell => cell.removeEventListener('click', game.takeTurn));
+    //   displayCells.forEach(cell => cell.removeEventListener('click', game.takeTurn));
       displayCells.forEach(cell => cell.classList.remove('winsquare'));
       displayCells.forEach(cell => cell.textContent = '');
 

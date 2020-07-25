@@ -7,11 +7,7 @@ body {
     background-color: #E7EAEE;
 }
 
-.header {
-    text-align: center;
-    font-size: 2rem;
 
-}
 
 #player-names {
     padding-left: 10px;
@@ -21,26 +17,35 @@ body {
     margin-bottom: 10px;
 }
 
+.left-panel {
+    margin-left: 30px;
+}
+
+.right-panel {
+    margin-right: 30px;
+}
+
 .left-panel, .right-panel {
     background-color: #ffd449;
     color: #3b4654;
-    margin-left: 10px;
-    margin-right: 10px;
     border-radius: 5px;
 }
 
-.board-container {
+.container {
     display: grid;
     grid-template-columns: 30% 40% 30%;
 }
 
 
 .board {
-    /* width: 50%;
-    margin: 0 auto; */
+
      display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.board  h1 {
+    font-size: 2.5rem;
 }
 .cell-row {
     display: flex;
@@ -86,16 +91,16 @@ body {
 .restart {
     display: none;
 }
-.restart button, #startGame {
+.restart button, #startGame, #playComputer {
     margin-top: 20px;
 	background-color:#3b4654;
     border-radius: 5px;
 	display:inline-block;
 	
 	color:#ffd449;
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 	font-weight:bold;
-	padding:13px 32px;
+	padding:10px 20px;
 
     
 }
@@ -108,4 +113,21 @@ body {
 
 input {
     border-radius: 5px;
+}
+
+#play-computer {
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+#play-computer > * {
+    padding-bottom: 5px;
+    margin-top: 10px;
+}
+
+#play-computer > p {
+    margin-bottom: 0;
+    padding-left: 3px;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
