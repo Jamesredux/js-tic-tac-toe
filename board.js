@@ -19,37 +19,33 @@ const gameBoard = (() => {
         ['','',''], 
         ['','',''],   
         ['','','']
-       ];
+    ];
 
     const getBoardState = () => boardData;
       
-    const logBoardState = () => {
-        console.log(boardData);
-    };
 
     const reset = () => {
-        console.log("called")
+
         for(i = 0; i < 3; i++) {
             
             for(j = 0; j < 3; j++) {
                 boardData[i][j] = '';
             };
-
         };
 
       displayCells.forEach(cell => cell.removeEventListener('click', game.takeTurn));
       displayCells.forEach(cell => cell.classList.remove('winsquare'));
       displayCells.forEach(cell => cell.textContent = '');
+
       gameOver = false;
     };
 
     const updateBoard = (coords, playerMark) => {
+
         boardData[coords[0]][coords[1]] = playerMark;
         
         let cellDiv = document.querySelector("[data-cell=" + CSS.escape(coords) + "]");
         cellDiv.textContent = playerMark;
-        
-       
     };
 
     const checkWin = (currentPlayer) => {
@@ -80,12 +76,10 @@ const gameBoard = (() => {
 
     const checkDraw = () => {
        const flattened = [].concat(...boardData);
-            if ( !flattened.some(x => x === '')) {
-                return true;
-            };
             
-      
-
+       if ( !flattened.some(x => x === '')) {
+            return true;
+        };
     };
 
 
@@ -94,7 +88,6 @@ const gameBoard = (() => {
     return {
       getBoardState,
       reset,
-      logBoardState,
       updateBoard,
       checkWin,
       checkDraw
@@ -102,10 +95,5 @@ const gameBoard = (() => {
     };
   })();
 
-//  gameBoard.logBoardState();
-//  gameBoard.reset();
-//  gameBoard.logBoardState();
-//  gameBoard.updateBoard('11', 'X');
-//  gameBoard.logBoardState();
 
  

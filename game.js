@@ -25,9 +25,12 @@ const game = (() => {
 
     function takeTurn() {
         if (this.textContent != '') return;
+
         let cellCoords = this.dataset.cell;
         let mark = currentPlayer.mark;
+
         gameBoard.updateBoard(cellCoords, mark);
+        
         if (gameBoard.checkWin(currentPlayer)) {
             gameWon();
         } else if (gameBoard.checkDraw()) {
