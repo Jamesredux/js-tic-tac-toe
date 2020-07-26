@@ -13,7 +13,7 @@ const game = (() => {
     let currentPlayer;
 
     const playGame = (player1Name, player2Name) => {
-        console.log("two player game")
+    
       player1 = player(player1Name, true);
       player2 = player(player2Name, false);
 
