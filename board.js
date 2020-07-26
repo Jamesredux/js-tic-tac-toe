@@ -49,12 +49,42 @@ const gameBoard = (() => {
         cellDiv.textContent = playerMark;
     };
 
-    //choosed first free square
+
     const computerTurn = (currentPlayer) => {
-        console.log(currentPlayer.mark)
+        let oppositionMark = currentPlayer.mark === "X" ? "O" : "X";
+        let moved = false;
+
+        for(i = 0; i < winningLines.length; i++) {
+            let line = winningLines[i];    
+            let lineData = [boardData[line[0]][line[1]], 
+                            boardData[line[2]][line[3]],
+                            boardData[line[4]][line[5]]
+                        ];
+
+            let oppoTotal = lineData.filter(x => x == oppositionMark).length;
+            let compTotal = lineData.filter(x => x == currentPlayer.mark).length;
+            
+            // check if possible winning move for computer the block opposition win
+            if (compTotal == 2 && lineData.includes('')) {
+                smartMove(currentPlayer, line);
+                moved = true;
+                break
+            } else if (oppoTotal == 2 && lineData.includes('')) {
+                 smartMove(currentPlayer, line);
+                 moved = true;
+                 break; 
+            } ;   
+        };
+        // if no winning move or blocking move just picks first free square
+      if (moved == false) anyFreeSquare(currentPlayer);
+      
+    };
+
+    const anyFreeSquare = (currentPlayer) => {
         for(i = 0; i < 3; i++) {
             
             for(j = 0; j < 3; j++) {
+
                 if(boardData[i][j] === '') {
                     boardData[i][j] = currentPlayer.mark;
                     let compcoords = '' + [i] + [j];
@@ -62,11 +92,33 @@ const gameBoard = (() => {
                     ("[data-cell=" + CSS.escape(compcoords) + "]");
                     computerChoice.textContent = currentPlayer.mark;
                     return;
-                }
+                };
               
             };
         };
     };
+
+    const smartMove = (currentPlayer, line) => {
+        let a = 0;
+        let b = 1;
+
+        for(i = 0; i < 3; i++) {
+            if(boardData[line[a]][line[b]] == '') {
+                boardData[line[a]][line[b]] = currentPlayer.mark;
+                    let compcoords = '' + line[a] + line[b];
+                    let computerChoice = document.querySelector
+                    ("[data-cell=" + CSS.escape(compcoords) + "]");
+                    computerChoice.textContent = currentPlayer.mark;
+                    return;
+
+            } else {
+                a += 2;
+                b += 2;
+            }
+        }
+    }; 
+
+
 
     //random pick i 0 - 2
     //pick j 0 - 2
@@ -74,7 +126,7 @@ const gameBoard = (() => {
     // else run program again
     // should stop this running for ever
     // count if it has tried 100 times give up
-    
+
 
     const checkWin = (currentPlayer) => {
         winningLines.forEach(line => {
