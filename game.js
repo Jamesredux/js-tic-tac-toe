@@ -5,6 +5,7 @@ const game = (() => {
     const startForm = document.querySelector('#player-names');
     const startAIGame = document.querySelector('#play-computer');
     const restartButton = document.querySelector('.restart');
+    const restartAIButton = document.querySelector('.restartAI');
     
     let turn = 0;
     let player1;
@@ -12,13 +13,13 @@ const game = (() => {
     let currentPlayer;
 
     const playGame = (player1Name, player2Name) => {
-
+        console.log("two player game")
       player1 = player(player1Name, true);
       player2 = player(player2Name, false);
 
       infoCard.innerHTML = '';
       gameBoard.reset();
-
+      squares.forEach(square => square.removeEventListener('click', takeTurnVsAI));
       squares.forEach(square => square.addEventListener('click', takeTurn));
       
       currentPlayer = player1  
@@ -59,25 +60,57 @@ const game = (() => {
         let cellCoords = this.dataset.cell;
         let mark = currentPlayer.mark;
         gameBoard.updateBoard(cellCoords, mark);
-        //check win draw
-        //then computer take turn
-
-        if (turn%2 == 0) {
-            console.log("player turn")
-            turn++
+        if (gameBoard.checkWin(currentPlayer)) {
+            playerBeatsComputer();
+            return;
+        } else if (gameBoard.checkDraw()) {
+            gameDrawnAI();
+            return;
         } else {
-            console.log("computer turn")
-            turn++
-        }
-    }
+            currentPlayer === player1 ? currentPlayer = player2 : currentPlayer = player1;
+        };
+        gameBoard.computerTurn(currentPlayer);
+        if (gameBoard.checkWin(currentPlayer)) {
+            computerBeatsPlayer();
+            return;
+        } else if (gameBoard.checkDraw()) {
+            gameDrawnAI();
+            return;
+        } else {
+            currentPlayer === player1 ? currentPlayer = player2 : currentPlayer = player1;
+        };
+
+    };
 
     const gameWon = () => {
 
         infoCard.innerHTML = currentPlayer.name + ' is the winner.';
-        squares.forEach(square => square.removeEventListener('click', takeTurn));
+        freezeBoard(takeTurn);
         addRestartButton();
-
     };
+
+    const playerBeatsComputer = () => {
+        infoCard.innerHTML = currentPlayer.name + ' beat the computer.';
+        freezeBoard(takeTurnVsAI);
+        addRestartAIGame();
+        
+    };
+
+    const computerBeatsPlayer = () => {
+        infoCard.innerHTML = 'The Computer has defeated you!';
+        freezeBoard(takeTurnVsAI);
+        addRestartAIGame();
+    }
+
+    const gameDrawnAI = () => {
+        infoCard.innerHTML = 'It\'s a Tie!';
+        addRestartAIGame();
+    }
+
+    const freezeBoard = (method) => {
+        squares.forEach(square => square.removeEventListener('click', method));
+        
+    }
 
     const gameDrawn = () => {
         infoCard.innerHTML = 'It\'s a Tie!';
@@ -87,6 +120,10 @@ const game = (() => {
     const addRestartButton = () => {     
         restartButton.style.display = 'block';
     };
+
+    const addRestartAIGame = () => {
+        restartAIButton.style.display = 'block';
+    }
     
     
     
@@ -111,6 +148,11 @@ const game = (() => {
         playGame(player1.name, player2.name);
 
      });
+
+     restartAIButton.addEventListener('click', function(e) {
+         e.preventDefault();
+         playComputerGame(player1.name);
+     })
 
      window.onload = function() {
          playGame('Player 1', 'Player 2');

@@ -1,6 +1,7 @@
 const gameBoard = (() => {
     let gameOver = false;
     const displayCells = document.querySelectorAll('.cell');
+    const restartSection = document.querySelectorAll(`[class^='restart']`);
     
     //these are arrays of the array address of all possible winning lines
     //eg: first one is first row -- boardData[0][0] boardData[0][1] boardData[0][2]
@@ -33,9 +34,9 @@ const gameBoard = (() => {
             };
         };
 
-    //   displayCells.forEach(cell => cell.removeEventListener('click', game.takeTurn));
       displayCells.forEach(cell => cell.classList.remove('winsquare'));
       displayCells.forEach(cell => cell.textContent = '');
+      restartSection.forEach(button => button.style.display = 'none');
 
       gameOver = false;
     };
@@ -47,6 +48,33 @@ const gameBoard = (() => {
         let cellDiv = document.querySelector("[data-cell=" + CSS.escape(coords) + "]");
         cellDiv.textContent = playerMark;
     };
+
+    //choosed first free square
+    const computerTurn = (currentPlayer) => {
+        console.log(currentPlayer.mark)
+        for(i = 0; i < 3; i++) {
+            
+            for(j = 0; j < 3; j++) {
+                if(boardData[i][j] === '') {
+                    boardData[i][j] = currentPlayer.mark;
+                    let compcoords = '' + [i] + [j];
+                    let computerChoice = document.querySelector
+                    ("[data-cell=" + CSS.escape(compcoords) + "]");
+                    computerChoice.textContent = currentPlayer.mark;
+                    return;
+                }
+              
+            };
+        };
+    };
+
+    //random pick i 0 - 2
+    //pick j 0 - 2
+    // if square free fill square 
+    // else run program again
+    // should stop this running for ever
+    // count if it has tried 100 times give up
+    
 
     const checkWin = (currentPlayer) => {
         winningLines.forEach(line => {
@@ -90,7 +118,9 @@ const gameBoard = (() => {
       reset,
       updateBoard,
       checkWin,
-      checkDraw
+      checkDraw,
+      computerTurn
+
 
     };
   })();

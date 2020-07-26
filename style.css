@@ -91,7 +91,12 @@ body {
 .restart {
     display: none;
 }
-.restart button, #startGame, #playComputer {
+
+.restartAI {
+    display: none;
+}
+
+.restart button, .restartAI button, #startGame, #playComputer {
     margin-top: 20px;
 	background-color:#3b4654;
     border-radius: 5px;
@@ -107,7 +112,7 @@ body {
 
 
 
-.restart {
+.restart, .restartAI {
     padding-left: 30px;
 };
 
