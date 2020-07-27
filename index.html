@@ -13,7 +13,7 @@
 
 
     <div class="left-panel">
-        <div class="player-name-form">
+        <div class="forms-container">
             <form id="player-names">
                 <h2>Please input player names:</h2>
                 <label for="player1">Player 1 (X)</label><br>
@@ -21,14 +21,15 @@
                 <label for="player2">Player 2 (O)</label><br>
                 <input type="text" id="player2" name="player2" placeholder="Player 2" maxlength="60"><br>
                
-               <input id="startGame" type="submit" value="Start Game">
+               <input id="startGame" class="button-style" type="submit" value="Start Game">
                
             </form> 
+        
             <form action="" id="play-computer">
-                <p>Or play against the computer</p>
+                <h2>Or play against the computer</h2>
                 <label for="singlePlayer">Player Name</label><br>
                 <input type="text" id="singlePlayer" name="" placeholder="Your Name" maxlength="60"><br>
-                <input id="playComputer" type="submit" value="Play vs Computer">
+                <input id="playComputer" class="button-style" type="submit" value="Play vs Computer">
             </form>
         </div>
     </div>    
@@ -59,15 +60,19 @@
         <p class="result"></p>
         
             <div class="restart">
-                <button>Restart</button>
+                <button class="button-style">Restart</button>
             </div>
 
             <div class="restartAI">
-                <button>Play Again</button>
+                <button class="button-style">Play Again</button>
             </div>
        
     </div>
 
+    </div>
+
+    <div class="footer">
+       <a href="https://github.com/Jamesredux/js-tic-tac-toe">Github</a>
     </div>
     
 
