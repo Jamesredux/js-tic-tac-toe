@@ -21,10 +21,7 @@ const gameBoard = (() => {
         ['','',''],   
         ['','','']
     ];
-
-    const getBoardState = () => boardData;
-      
-
+   
     const reset = () => {
 
         for(i = 0; i < 3; i++) {
@@ -64,7 +61,7 @@ const gameBoard = (() => {
             let oppoTotal = lineData.filter(x => x == oppositionMark).length;
             let compTotal = lineData.filter(x => x == currentPlayer.mark).length;
             
-            // check if possible winning move for computer the block opposition win
+            // check if possible winning move for computer then block opposition win
             if (compTotal == 2 && lineData.includes('')) {
                 smartMove(currentPlayer, line);
                 moved = true;
@@ -120,14 +117,6 @@ const gameBoard = (() => {
 
 
 
-    //random pick i 0 - 2
-    //pick j 0 - 2
-    // if square free fill square 
-    // else run program again
-    // should stop this running for ever
-    // count if it has tried 100 times give up
-
-
     const checkWin = (currentPlayer) => {
         winningLines.forEach(line => {
             let lineData = [boardData[line[0]][line[1]], 
@@ -163,17 +152,12 @@ const gameBoard = (() => {
     };
 
 
-
-
     return {
-      getBoardState,
       reset,
       updateBoard,
       checkWin,
       checkDraw,
       computerTurn
-
-
     };
   })();
 

@@ -7,7 +7,7 @@ const game = (() => {
     const restartButton = document.querySelector('.restart');
     const restartAIButton = document.querySelector('.restartAI');
     
-    let turn = 0;
+    
     let player1;
     let player2;
     let currentPlayer;
@@ -27,14 +27,13 @@ const game = (() => {
     };
 
     const playComputerGame = (singlePlayerName) => {
+
         player1 = player(singlePlayerName, true);
-        // player2 = computerPlayer()
         infoCard.innerHTML = '';
         gameBoard.reset();
         squares.forEach(square => square.removeEventListener('click', takeTurn));
         squares.forEach(square => square.addEventListener('click', takeTurnVsAI));
         
-        turn = 0
         currentPlayer = player1  
     };
 
