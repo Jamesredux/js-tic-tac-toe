@@ -17,7 +17,7 @@
 }
 
 body {
-    /* background-color: var(--lightblue); */
+   
 }
 
 
@@ -177,8 +177,7 @@ input {
     bottom: 0;
     width: 100%;
     background-color: var(--boardblue);
-   
-    /* text-align: center; */
+ 
     margin-top: 10px;
     display: flex;
     flex-direction: column;
